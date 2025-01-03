@@ -1,5 +1,5 @@
 "use client";
-import GoogleButton from "@/app/components/button/GoogleButton";
+import GoogleButton from "@/components/button/GoogleButton";
 
 export default function Form() {
   return (

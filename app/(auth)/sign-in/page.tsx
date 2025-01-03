@@ -3,12 +3,19 @@ import Link from "next/link"
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline"
 
 import Form from "./From"
+import NextAuth, { getServerSession } from "next-auth"
+import authOptions from "@/app/lib/auth"
+import { redirect } from "next/navigation"
 
 
 
 
 const page: React.FC = async () => {
-
+ 
+  const session = await getServerSession(authOptions);
+  if(session){
+    redirect('/');
+  }
 
   return (
     <div className="">
