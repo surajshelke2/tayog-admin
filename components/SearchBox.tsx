@@ -9,7 +9,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ value, handleSearch, setValue, pl
         handleSearch(new Event('submit') as unknown as React.FormEvent<HTMLFormElement>);
     };
     return (
-        <form onSubmit={handleSearch} className="flex items-center rounded-xl w-full shadow-normal px-3 bg-white py-2 text-sm">
+        <form onSubmit={handleSearch} className="flex items-center rounded-xl w-full shadow-md px-3 bg-white py-2 text-sm">
             <input
                 type="text"
                 name="Search"
