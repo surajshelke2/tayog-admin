@@ -5,11 +5,12 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import UserProfileCard from "@/components/Admin/UserProfileCard";
-import Filters from "@/components/Filters";
+import Filters from "@/components/Filters/Filters";
 import SearchBox from "@/components/SearchBox";
 import { AccountStatusType, UsersResult } from "@/interface/admin";
 import Link from "next/link";
 import { IoIosArrowBack, IoMdMore } from "react-icons/io";
+import NoOfFilters from "@/components/Filters/NoOfFilters";
 const links: AccountStatusType[] = [
   { label: "Account reported", status: 8 },
   { label: "Account Blocked", status: 7 },
@@ -50,6 +51,7 @@ export default function Results() {
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filters, setFilters] = useState<string[]>([]);
+  const [noOfFilter, setNoOfFilter] = useState<number>();
 
   const pageFromQuery = parseInt(searchParams.get("page") || "1", 10);
 
@@ -67,6 +69,7 @@ export default function Results() {
         : [];
     setSearchQuery(queryFromQuery);
     setFilters(filterArray);
+    setNoOfFilter(filterArray.length);
     fetchUserDetails(pageFromQuery, queryFromQuery, filtersFromQuery);
   }, [pageFromQuery, searchParams]);
 
@@ -120,9 +123,9 @@ export default function Results() {
   };
 
   return (
-    <section>
-      <div className="">
-        <div className="flex flex-col mt-2 ">
+    <section className="p-4 ">
+      <div className="space-y-4">
+        <div className="flex flex-col mt-2">
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-2">
               <IoIosArrowBack />
@@ -134,14 +137,24 @@ export default function Results() {
             </div>
           </div>
         </div>
+
         <div className="flex justify-between items-center mb-8">
-          <SearchBox
-            value={searchQuery}
-            handleSearch={handleSearch}
-            setValue={setSearchQuery}
-            placeholder="Search by User ID, Name, or Email"
-          />
-        </div>
+
+  <div className="flex-1 max-w-xl">
+    <SearchBox
+      value={searchQuery}
+      handleSearch={handleSearch}
+      setValue={setSearchQuery}
+      placeholder="Search by User ID"
+    />
+  </div>
+  
+
+  <div className="ml-4">
+    <NoOfFilters number={noOfFilter || 0} />
+  </div>
+</div>
+
 
         <div className="mb-8">
           <Filters
